@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="board">
+	<!-- 전체 게시글 목록 불러오기 -->
+	<select id="boardSelect" resultClass="boardVO">
+		select board_no, board_title, board_content, board_writer, board_regdate, file_no
+		from board
+	</select>	
+    
+    <!-- 게시글 등록하기 (파일이 있다면 파일 먼저 등록해야겠다.) -->
+    <insert id="boardInsert" parameterClass="boardVO">
+    	insert into notice (board_no, board_title, board_content, board_writer, board_regdate, file_no)
+    		values (seq_bono.nextval, #board_title#, #board_content#, #board_writer#, sysdate, #file_no#)
+    </insert>
+    
+<!--     게시글 삭제하기 -->
+<!--     <delete id="boardDelete" parameterClass="int"> -->
+<!--     	delete from notice where bono = #data# -->
+<!--     </delete> -->
+    
+<!--      게시글 수정하기  -->
+<!--     <update id="boardUpdate" parameterClass="Hashmap"> -->
+<!--     	update notice -->
+<!--     	 set $stype$ = #sword# -->
+<!--     	 where bono = #bono# -->
+<!--     </update> -->
+    
+    
+</sqlMap>

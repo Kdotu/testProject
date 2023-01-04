@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap 
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="file">
+	<!-- 전체 파일 목록 불러오기 -->
+	<select id="fileAllSelect" resultClass="fileVO">
+		select file_no, file_writer, file_origin, file_savename, file_size, file_date
+	      from board_file
+	</select>	
+    
+    <!-- 파일 등록하기 (게시글 등록 전에 등록) -->
+    <insert id="fileInsert" parameterClass="fileVO">
+    	<selectKey keyProperty="file_no" resultClass="int" type="post">
+    		select seq_fileno.nextval from dual
+    	</selectKey>
+    	insert into board_file( file_no, file_writer, file_origin, file_savename, file_size, file_date)
+    		values (#file_no#, #file_writer#, #file_origin#, #file_savename#, #file_size#, sysdate)
+    </insert>
+    
+    
+    
+</sqlMap>
